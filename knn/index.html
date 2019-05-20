@@ -1,0 +1,764 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A Material about Data Mining">
+      
+      
+        <link rel="canonical" href="https://github.com/anggiseptian/170441100030_DataMining/knn/">
+      
+      
+        <meta name="author" content="Anggi Septian">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.2.0">
+    
+    
+      
+        <title>K-Nearest Neighbors - Data Mining</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.750b69bd.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "None", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#k-nearest-neighbors-pada-python-dengan-menggunakan-scikit-learn" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://github.com/anggiseptian/170441100030_DataMining" title="Data Mining" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Data Mining
+            </span>
+            <span class="md-header-nav__topic">
+              K-Nearest Neighbors
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/anggiseptian/170441100030_DataMining" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Anggi Septian
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." title="Pendahuluan" class="md-tabs__link md-tabs__link--active">
+        Pendahuluan
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://github.com/anggiseptian/170441100030_DataMining" title="Data Mining" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Data Mining
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/anggiseptian/170441100030_DataMining" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Anggi Septian
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Pendahuluan" class="md-nav__link">
+      Pendahuluan
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        K-Nearest Neighbors
+      </label>
+    
+    <a href="./" title="K-Nearest Neighbors" class="md-nav__link md-nav__link--active">
+      K-Nearest Neighbors
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#teori-k-nn" title="Teori K-NN" class="md-nav__link">
+    Teori K-NN
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keuntungan-k-nn" title="Keuntungan K-NN" class="md-nav__link">
+    Keuntungan K-NN
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kekurangan-k-nn" title="Kekurangan K-NN" class="md-nav__link">
+    Kekurangan K-NN
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi-k-nn-menggunakan-scikit-learn" title="Implementasi K-NN Menggunakan Scikit-Learn" class="md-nav__link">
+    Implementasi K-NN Menggunakan Scikit-Learn
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mengimport-kan-libraries" title="1. Mengimport-kan Libraries" class="md-nav__link">
+    1. Mengimport-kan Libraries
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mengimport-kan-dataset" title="2. Mengimport-kan Dataset" class="md-nav__link">
+    2. Mengimport-kan Dataset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-training-dan-test-split" title="3. Training dan Test Split" class="md-nav__link">
+    3. Training dan Test Split
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-training-dan-prediksi" title="4. Training dan Prediksi" class="md-nav__link">
+    4. Training dan Prediksi
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-mengetahui-tingkat-akurasi" title="5. Mengetahui Tingkat Akurasi" class="md-nav__link">
+    5. Mengetahui Tingkat Akurasi
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referensi" title="Referensi" class="md-nav__link">
+    Referensi
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Decision_Tree/" title="Decision Tree" class="md-nav__link">
+      Decision Tree
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Biodata/" title="Biodata Penulis" class="md-nav__link">
+      Biodata Penulis
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#teori-k-nn" title="Teori K-NN" class="md-nav__link">
+    Teori K-NN
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keuntungan-k-nn" title="Keuntungan K-NN" class="md-nav__link">
+    Keuntungan K-NN
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kekurangan-k-nn" title="Kekurangan K-NN" class="md-nav__link">
+    Kekurangan K-NN
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementasi-k-nn-menggunakan-scikit-learn" title="Implementasi K-NN Menggunakan Scikit-Learn" class="md-nav__link">
+    Implementasi K-NN Menggunakan Scikit-Learn
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mengimport-kan-libraries" title="1. Mengimport-kan Libraries" class="md-nav__link">
+    1. Mengimport-kan Libraries
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mengimport-kan-dataset" title="2. Mengimport-kan Dataset" class="md-nav__link">
+    2. Mengimport-kan Dataset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-training-dan-test-split" title="3. Training dan Test Split" class="md-nav__link">
+    3. Training dan Test Split
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-training-dan-prediksi" title="4. Training dan Prediksi" class="md-nav__link">
+    4. Training dan Prediksi
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-mengetahui-tingkat-akurasi" title="5. Mengetahui Tingkat Akurasi" class="md-nav__link">
+    5. Mengetahui Tingkat Akurasi
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referensi" title="Referensi" class="md-nav__link">
+    Referensi
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="k-nearest-neighbors-pada-python-dengan-menggunakan-scikit-learn">K-Nearest Neighbors Pada Python dengan Menggunakan Scikit-Learn<a class="headerlink" href="#k-nearest-neighbors-pada-python-dengan-menggunakan-scikit-learn" title="Permanent link">&para;</a></h1>
+<p>Algoritma K-tetangga terdekat (KNN) adalah jenis algoritma pembelajaran mesin yang diawasi. KNN sangat mudah diimplementasikan dalam bentuk paling dasar, namun melakukan tugas klasifikasi yang cukup kompleks. Ini adalah algoritma pembelajaran yang menggunakan semua data untuk training sambil mengklasifikasikan titik atau contoh data baru. KNN adalah algoritma pembelajaran non-parametrik, yang berarti bahwa itu tidak mengasumsikan apa pun tentang data yang mendasarinya. Ini adalah fitur yang sangat berguna karena sebagian besar data dunia nyata tidak benar-benar mengikuti asumsi teoretis, misalnya linear-separability, distribusi seragam, dll</p>
+<h2 id="teori-k-nn">Teori K-NN<a class="headerlink" href="#teori-k-nn" title="Permanent link">&para;</a></h2>
+<p>Intuisi di balik algoritma KNN adalah salah satu yang paling sederhana dari semua algoritma pembelajaran mesin yang diawasi. Ini hanya menghitung jarak dari titik data baru ke semua titik data training lainnya. Jarak dapat dari jenis apa pun, misalnya Euclidean atau Manhattan dll. Kemudian akan memilih titik data K-terdekat, di mana K dapat berupa bilangan bulat apa pun. Akhirnya ia memberikan titik data ke kelas tempat mayoritas titik data K berada.[1]</p>
+<p>Perhatikan algoritma ini dalam aksi dengan bantuan contoh sederhana. Misalkan Anda memiliki dataset dengan dua variabel, yang ketika diplot, terlihat seperti pada gambar berikut :</p>
+<p><img alt="" src="../assets/images/KNN-1.png" /></p>
+<p>Tugas Anda adalah untuk mengklasifikasikan titik data baru dengan 'X' ke dalam kelas "Biru" atau "Merah". Nilai koordinat titik data adalah x = 45 dan y = 50. Misalkan nilai K adalah 3. Algoritma KNN dimulai dengan menghitung jarak titik X dari semua titik. Kemudian menemukan 3 titik terdekat dengan jarak paling sedikit ke titik X. Ini ditunjukkan pada gambar di bawah ini. Tiga titik terdekat telah dilingkari</p>
+<p><img alt="" src="../assets/images/KNN-2.png" /></p>
+<p>Langkah terakhir dari algoritma KNN adalah untuk menetapkan titik baru ke kelas yang dimiliki mayoritas tiga titik terdekat. Dari gambar di atas kita dapat melihat bahwa dua dari tiga titik terdekat milik kelas "Merah" sementara satu milik kelas "Biru". Oleh karena itu titik data baru akan diklasifikasikan sebagai "Merah".</p>
+<h2 id="keuntungan-k-nn">Keuntungan K-NN<a class="headerlink" href="#keuntungan-k-nn" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>K-NN sangat mudah diimplementasikan.</p>
+</li>
+<li>
+<p>Seperti yang dikatakan sebelumnya, K-NN adalah algoritma pembelajaran malas dan karenanya tidak memerlukan pelatihan sebelum membuat prediksi waktu nyata. Ini membuat algoritma K-NN jauh lebih cepat daripada algoritma lain yang membutuhkan pelatihan misalnya SVM, regresi linier, dll.</p>
+</li>
+<li>
+<p>Karena algoritma tidak memerlukan pelatihan sebelum membuat prediksi, data baru dapat ditambahkan dengan mulus.</p>
+</li>
+<li>
+<p>Hanya ada dua parameter yang diperlukan untuk mengimplementasikan K-NN yaitu nilai K dan fungsi jarak (misalnya Euclidean atau Manhattan dll.)</p>
+</li>
+</ol>
+<h2 id="kekurangan-k-nn">Kekurangan K-NN<a class="headerlink" href="#kekurangan-k-nn" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Algoritma K-NN tidak bekerja dengan baik dengan data dimensi tinggi karena dengan sejumlah besar dimensi, menjadi sulit bagi algoritma untuk menghitung jarak di setiap dimensi.</li>
+<li>Algoritma K-NN memiliki biaya prediksi tinggi untuk kumpulan data besar. Ini karena dalam dataset besar biaya jarak penghitungan antara titik baru dan setiap titik yang ada menjadi lebih tinggi.</li>
+<li>Akhirnya, algoritma K-NN tidak bekerja dengan baik dengan fitur kategorikal karena sulit untuk menemukan jarak antara dimensi dengan fitur kategorikal.</li>
+</ol>
+<h2 id="implementasi-k-nn-menggunakan-scikit-learn">Implementasi K-NN Menggunakan Scikit-Learn<a class="headerlink" href="#implementasi-k-nn-menggunakan-scikit-learn" title="Permanent link">&para;</a></h2>
+<p>Data set yang digunakan dalam contoh peng-implemetasian K-NN menggunakan Scikit-Learn kali ini adalah Iris-Data set. Dataset terdiri dari empat atribut: lebar sepal, panjang sepal, lebar daun dan panjang daun. Ini adalah atribut dari jenis spesifik tanaman iris. Tugasnya adalah untuk memprediksi kelas tempat tanaman ini berada. Ada tiga kelas dalam dataset: Iris-setosa, Iris-versicolor dan Iris-virginica.</p>
+<p>Langkah-langkah dalam membuat programnya adalah akan dijelaskan sebagai berikut:</p>
+<h4 id="1-mengimport-kan-libraries">1. Mengimport-kan Libraries<a class="headerlink" href="#1-mengimport-kan-libraries" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span> 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>    
+</pre></div>
+
+<ul>
+<li>
+<p>pandas : dapat membaca <em>file</em> dari berbagai <em>format</em> seperti <strong>.txt</strong>, <strong>.csv</strong>, <strong>.tsv</strong>, dan lainnya. Anggap saja Pandas adalah <em>spreadsheet</em> namun tidak memiliki GUI dan punya fitur seperti SQL.</p>
+</li>
+<li>
+<p>matplotlib : membantu untuk memvisualisasikan data dengan lebih indah dan rapi.</p>
+</li>
+<li>numpy : memiliki kegunaan untuk operasi vektor dan matriks.[2]</li>
+</ul>
+<h4 id="2-mengimport-kan-dataset">2. Mengimport-kan Dataset<a class="headerlink" href="#2-mengimport-kan-dataset" title="Permanent link">&para;</a></h4>
+<p>Untuk python dapat membaca data yang akan di jalankan, kita harus mengimport data nya terlebih dahulu dengan kode seperti berikut :</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">logistic_regression_path</span>
+
+<span class="n">iris</span><span class="o">=</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+</pre></div>
+
+<p>dan untuk menampilkan data tersebut, kode yang digunakan adalah:</p>
+<div class="codehilite"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+
+<h4 id="3-training-dan-test-split">3. Training dan Test Split<a class="headerlink" href="#3-training-dan-test-split" title="Permanent link">&para;</a></h4>
+<p>Untuk menghindari over-fitting, sebaiknya dataset dibagi menjadi menjadi data training dan data testing, yang memberikan ide yang lebih baik tentang bagaimana algoritma dilakukan selama fase pengujian. Dengan cara ini, algoritma kami diuji pada data yang tidak terlihat.</p>
+<p>Untuk membuat training dan menguji pemisahan, jalankan skrip berikut:  </p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
+</pre></div>
+
+<h4 id="4-training-dan-prediksi">4. Training dan Prediksi<a class="headerlink" href="#4-training-dan-prediksi" title="Permanent link">&para;</a></h4>
+<p>Sangat mudah untuk melatih algoritma KNN dan membuat prediksi dengannya, terutama saat menggunakan Scikit-Learn.</p>
+<p>Kode yang digunakan adalah:</p>
+<div class="codehilite"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">neighbors</span> <span class="kn">import</span> <span class="nn">KNeighborsClassifier</span>
+<span class="n">clf</span><span class="o">=</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+<p>Langkah pertama adalah mengimpor kelas KNeighborsClassifier dari perpustakaan sklearn.neighbors. </p>
+<p>Di baris kedua, kelas ini diinisialisasi dengan satu parameter, yaitu n_neigbours. Ini pada dasarnya adalah nilai untuk K. Tidak ada nilai ideal untuk K dan dipilih setelah pengujian dan evaluasi, namun untuk memulai, bisa menggunakan 3 sebagai nilai untuk algoritma K-NN.</p>
+<h4 id="5-mengetahui-tingkat-akurasi">5. Mengetahui Tingkat Akurasi<a class="headerlink" href="#5-mengetahui-tingkat-akurasi" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">metrics</span> <span class="kn">import</span> <span class="nn">accuracy_score</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;accuracy is &quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)))</span>
+</pre></div>
+
+<p>untuk dapat mengetahui tingkat akurasi dari prediksi data yang kita lakukan langkah pertama adalah dengan mengimpor kelas accuracy_score.</p>
+<p>dibaris kedua adalah output yang akan ditampilkan mengenai besarnya akurasi adalah.</p>
+<p>maka hasil outputnya akan seperti pada gambar berikut:</p>
+<p><img alt="" src="../assets/images/akurasi.JPG" /></p>
+<ul>
+<li>untuk dapat mengeksekusi nilai data akurasi menjadi data grafik, maka kode yang digunakan adalah:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">accuracy_values</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">clf</span><span class="o">=</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+    <span class="n">accuracy</span><span class="o">=</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">))</span>
+    <span class="n">accuracy_values</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">accuracy</span><span class="p">])</span>
+    <span class="k">pass</span>
+</pre></div>
+
+<p>hasil output dari kode diatas adalah :</p>
+<p><img alt="" src="../assets/images/mat.JPG" /></p>
+<ul>
+<li>untuk menampilkan output data dalam bentuk array, kode yang digunakan adalah :</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">accuracy_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">accuracy_values</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">accuracy_values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">accuracy_values</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;K&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+<p>dan kode diatas akan menghasilkan output seperti berikut:</p>
+<p><img alt="" src="../assets/images/array.JPG" /></p>
+<p>sebanyak dataset yang diimportkan yaitu 150 data.</p>
+<h2 id="referensi">Referensi<a class="headerlink" href="#referensi" title="Permanent link">&para;</a></h2>
+<p>[[1] ]: <a href="https://stackabuse.com/k-nearest-neighbors-algorithm-in-python-and-scikit-learn/">https://stackabuse.com/k-nearest-neighbors-algorithm-in-python-and-scikit-learn/</a>    "Teori"
+[[2]]: <a href="https://www.codepolitan.com/5-library-python-untuk-data-science-59b774b6cad97#">https://www.codepolitan.com/5-library-python-untuk-data-science-59b774b6cad97#</a>   "Libraries"</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Pendahuluan" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Pendahuluan
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Decision_Tree/" title="Decision Tree" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Decision Tree
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Anggi Septian
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/anggiseptian" class="md-footer-social__link fa fa-github-alt"></a>
+    
+      <a href="https://instagram.com/anggiiseptian_" class="md-footer-social__link fa fa-instagram"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.8c0d971c.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
